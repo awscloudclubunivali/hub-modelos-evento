@@ -1,0 +1,81 @@
+{
+  "event": {
+    "badge": "Meetup Oficial",
+    "title": "MEETUP #02",
+    "subtitle": "AWS CLOUD CLUB UNIVALI",
+    "bannerEventTitle": "Meetup #02 - O Futuro do Desenvolvimento com IA e Fundamentos da Nuvem",
+    "description": "O futuro do desenvolvimento assistido por IA e os fundamentos essenciais da nuvem AWS.",
+    "dateTime": "29 Abr • 19:00",
+    "location": "Online (Meet)",
+    "socialHandle": "/aws-cloud-club-univali",
+    "downloadPrefix": "AWS_Cloud_Club"
+  },
+  "branding": {
+    "communityLabel": "Comunidade Oficial",
+    "organizationName": "AWS Cloud Clubs",
+    "organizationUnit": "UNIVALI"
+  },
+  "labels": {
+    "realization": "Realizacao",
+    "support": "Apoio"
+  },
+  "assets": {
+    "mascot": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/logo-mascote.png",
+    "balloon": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/balao-cloud-club.png",
+    "realizationLogo": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/logo-cc-azul-sem-fundo.png",
+    "primarySupportLogo": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/logo-univali.png",
+    "supportLogos": [
+      "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/apoiadores/qualyteam.jpg",
+      "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/apoiadores/fluidapi.jpg"
+    ]
+  },
+  "speakers": {
+    "alex": {
+      "id": "alex",
+      "shortName": "Alex",
+      "name": "Alex Rese",
+      "title": "Desenvolvimento assistido por IA",
+      "tag": "Proibido Vibe Codar",
+      "iconType": "terminal",
+      "img": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/apresentadores/alex-rese.jpeg",
+      "bio": "Profissional de tecnologia e inovacao, mestre em Computacao Aplicada, atuando como gerente, professor e empreendedor na criacao de solucoes que conectam ideias a resultados."
+    },
+    "renato": {
+      "id": "renato",
+      "shortName": "Renato",
+      "name": "Renato Costa",
+      "title": "Desenvolvimento assistido por IA",
+      "tag": "Proibido Vibe Codar",
+      "iconType": "terminal",
+      "img": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/apresentadores/renato-costa.jpeg",
+      "bio": "Desenvolvedor Front-end na Qualyteam com exp. em web full stack. Especialista em React.js e TypeScript, criador de um marketplace gamer utilizando Next.js e Bun."
+    },
+    "fabricio": {
+      "id": "fabricio",
+      "shortName": "Fabricio",
+      "name": "Fabricio Bortoluzzi",
+      "title": "Servicos Essenciais",
+      "tag": "AWS Essencial",
+      "iconType": "cloud",
+      "img": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/apresentadores/fabricio-bertoluzzi.jpeg",
+      "bio": "Doutor em Ciencia da Computacao (UFSC), AWS Solutions Architect Associate e professor na UNIVALI e no Noroff University College (Noruega). É pesquisador focado em ciberseguranca."
+    }
+  },
+  "speakerOrder": ["alex", "renato", "fabricio"],
+  "talks": [
+    {
+      "id": "talk-ia",
+      "theme": "cyan",
+      "tag": "Proibido Vibe Codar",
+      "title": "Desenvolvimento com IA",
+      "speakerIds": ["alex", "renato"]
+    },
+    {
+      "id": "talk-aws",
+      "theme": "purple",
+      "tag": "AWS Essencial",
+      "title": "Servicos Essenciais",
+      "speakerIds": ["fabricio"]
+    }
+  ]
+}
