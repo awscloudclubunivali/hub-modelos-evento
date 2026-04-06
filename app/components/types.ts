@@ -1,10 +1,25 @@
 export type Format = "a4" | "instagram" | "linkedin";
 export type ProfileBannerVariant = "meetup" | "linkedin";
-export type EventBannerVariant = "default" | "meetup";
 
-export type PageView = "main" | "galactic" | `speaker:${string}`;
+export type PageView =
+  | "main"
+  | "club"
+  | "main-meetup"
+  | "galactic"
+  | "supporters"
+  | "sponsors"
+  | `speaker:${string}`;
 
 export type SpeakerKey = string;
+
+export type CarouselNavigation = {
+  title: string;
+  index: number;
+  total: number;
+  canNavigate: boolean;
+  onPrevious: () => void;
+  onNext: () => void;
+};
 
 export type IconType = "terminal" | "cloud";
 
@@ -27,6 +42,14 @@ export interface Talk {
   speakerIds: string[];
 }
 
+export interface Partner {
+  id: string;
+  shortName: string;
+  name: string;
+  logo: string;
+  description: string;
+}
+
 export interface EventConfig {
   event: {
     badge: string;
@@ -37,6 +60,13 @@ export interface EventConfig {
     dateTime: string;
     location: string;
     socialHandle: string;
+    socials: {
+      instagram: string;
+      linkedin: string;
+      email: string;
+      meetup: string;
+      youtube: string;
+    };
     downloadPrefix: string;
   };
   branding: {
@@ -54,6 +84,18 @@ export interface EventConfig {
     realizationLogo: string;
     primarySupportLogo: string;
     supportLogos: string[];
+  };
+  clubPromo: {
+    headline: string;
+    subheadline: string;
+    highlights: string[];
+    siteUrl: string;
+    callToAction: string;
+    qrCodeImage: string;
+  };
+  partners: {
+    supporters: Partner[];
+    sponsors: Partner[];
   };
   speakers: Record<string, Speaker>;
   speakerOrder: string[];

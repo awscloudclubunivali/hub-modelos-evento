@@ -25,6 +25,7 @@ export default function BannerFooter({ sizes, labels, assets }: BannerFooterProp
           <AssetImage
             src={assets.realizationLogo}
             alt="AWS Cloud Clubs"
+            data-export-force-white="true"
             className={`object-contain filter brightness-0 invert opacity-90 ${sizes.footerCC}`}
           />
         </div>
@@ -37,6 +38,7 @@ export default function BannerFooter({ sizes, labels, assets }: BannerFooterProp
           <AssetImage
             src={assets.primarySupportLogo}
             alt="Univali"
+            data-export-force-white="true"
             className={`object-contain filter brightness-0 invert opacity-90 mr-1 sm:mr-2 ${sizes.footerAp}`}
           />
           {assets.supportLogos.length > 0 ? (

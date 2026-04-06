@@ -7,12 +7,19 @@
     "description": "O futuro do desenvolvimento assistido por IA e os fundamentos essenciais da nuvem AWS.",
     "dateTime": "29 Abr • 19:00",
     "location": "Online (Meet)",
-    "socialHandle": "/aws-cloud-club-univali",
+    "socialHandle": "/awscloudclubunivali",
+    "socials": {
+      "instagram": "/awscloudclubunivali",
+      "linkedin": "/awscloudclubunivali",
+      "email": "awscloudclubunivali@outlook.com",
+      "meetup": "/aws-cloud-club-universidade-do-vale-do-itajai",
+      "youtube": "/awscloudclubunivali"
+    },
     "downloadPrefix": "AWS_Cloud_Club"
   },
   "branding": {
     "communityLabel": "Comunidade Oficial",
-    "organizationName": "AWS Cloud Clubs",
+    "organizationName": "AWS CLOUD CLUB",
     "organizationUnit": "UNIVALI"
   },
   "labels": {
@@ -27,6 +34,44 @@
     "supportLogos": [
       "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/apoiadores/qualyteam.jpg",
       "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/apoiadores/fluidapi.jpg"
+    ]
+  },
+  "clubPromo": {
+    "headline": "Aprenda Cloud na pratica com o AWS Cloud Club UNIVALI",
+    "subheadline": "Comunidade aberta para estudantes que querem evoluir com AWS, projetos reais e networking.",
+    "highlights": [
+      "Workshops e meetups",
+      "Projetos colaborativos",
+      "Mentoria e networking"
+    ],
+    "siteUrl": "https://linktr.ee/awscloudclubunivali",
+    "qrCodeImage": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/qr-codes/linktree.png"
+  },
+  "partners": {
+    "supporters": [
+      {
+        "id": "qualyteam",
+        "shortName": "Qualyteam",
+        "name": "Qualyteam",
+        "logo": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/apoiadores/qualyteam.jpg",
+        "description": "A Qualyteam é referência em soluções tecnológicas para gestão da qualidade e conformidade. Sua plataforma integrada apoia empresas na implementação de sistemas como ISO 9001, promovendo padronização, controle de processos e melhoria contínua."
+      },
+      {
+        "id": "fluidapi",
+        "shortName": "Fluid API",
+        "name": "Fluid API",
+        "logo": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/apoiadores/fluidapi.jpg",
+        "description": "Apoio ao meetup com incentivo ao ecossistema de desenvolvimento e APIs."
+      }
+    ],
+    "sponsors": [
+      {
+        "id": "univali",
+        "shortName": "Univali",
+        "name": "Univali",
+        "logo": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/logo-univali.png",
+        "description": "Patrocinador institucional do evento e parceiro da comunidade AWS Cloud Club UNIVALI."
+      }
     ]
   },
   "speakers": {

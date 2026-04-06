@@ -2,21 +2,21 @@ import { Cloud, Terminal } from "lucide-react";
 import AssetImage from "./AssetImage";
 import type { Format, Sizes, Speaker } from "./types";
 
-type FeaturedSpeakerCardProps = {
+type SpeakerSpotlightCardProps = {
   speaker: Speaker;
-  isTalk2: boolean;
+  isSecondaryTheme: boolean;
   isHorizontal: boolean;
   format: Format;
   sizes: Sizes;
 };
 
-export default function FeaturedSpeakerCard({
+export default function SpeakerSpotlightCard({
   speaker,
-  isTalk2,
+  isSecondaryTheme,
   isHorizontal,
   format,
   sizes,
-}: FeaturedSpeakerCardProps) {
+}: SpeakerSpotlightCardProps) {
   const isFeedMode = format === "instagram";
   const icon =
     speaker.iconType === "cloud" ? (
@@ -30,7 +30,7 @@ export default function FeaturedSpeakerCard({
       className={`group relative overflow-hidden bg-[#12032b]/60 border border-purple-400/30 backdrop-blur-md rounded-3xl flex flex-col shadow-lg w-full transition-all duration-300 min-h-0 ${isHorizontal ? "" : "flex-1"} ${sizes.featCardPad}`}
     >
       <div
-        className={`absolute left-0 top-0 bottom-0 w-2 sm:w-3 ${isTalk2 ? "bg-purple-400 shadow-[0_0_15px_#c084fc]" : "bg-cyan-400 shadow-[0_0_15px_#22d3ee]"} rounded-l-3xl z-20`}
+        className={`absolute left-0 top-0 bottom-0 w-2 sm:w-3 ${isSecondaryTheme ? "bg-purple-400 shadow-[0_0_15px_#c084fc]" : "bg-cyan-400 shadow-[0_0_15px_#22d3ee]"} rounded-l-3xl z-20`}
       ></div>
 
       <div className="relative z-10 w-full flex flex-col h-full min-h-0">
@@ -39,7 +39,7 @@ export default function FeaturedSpeakerCard({
             className={`flex-1 min-w-0 ${format === "a4" ? "pr-4 sm:pr-6 max-w-[72%]" : ""} ${isFeedMode ? "pr-20 sm:pr-24" : ""}`}
           >
             <div
-              className={`font-orbitron ${isTalk2 ? "text-purple-300" : "text-cyan-400"} font-bold uppercase tracking-widest flex items-center gap-1.5 ${sizes.featCardTag}`}
+              className={`font-orbitron ${isSecondaryTheme ? "text-purple-300" : "text-cyan-400"} font-bold uppercase tracking-widest flex items-center gap-1.5 ${sizes.featCardTag}`}
             >
               {icon}
               <span className="truncate">{speaker.tag}</span>

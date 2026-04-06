@@ -10,6 +10,13 @@ export const defaultEventConfig: EventConfig = {
     dateTime: "A definir",
     location: "A definir",
     socialHandle: "/aws-cloud-club",
+    socials: {
+      instagram: "https://www.instagram.com/awscloudclubunivali",
+      linkedin: "",
+      email: "",
+      meetup: "",
+      youtube: "",
+    },
     downloadPrefix: "AWS_Cloud_Club",
   },
   branding: {
@@ -28,6 +35,19 @@ export const defaultEventConfig: EventConfig = {
     primarySupportLogo: "",
     supportLogos: [],
   },
+  clubPromo: {
+    headline: "Participe do AWS Cloud Club UNIVALI",
+    subheadline:
+      "Comunidade para aprender cloud, construir projetos e evoluir com networking real.",
+    highlights: ["Conteudo pratico", "Networking", "Projetos reais"],
+    siteUrl: "https://www.instagram.com/awscloudclubunivali",
+    callToAction: "Quero participar",
+    qrCodeImage: "",
+  },
+  partners: {
+    supporters: [],
+    sponsors: [],
+  },
   speakers: {},
   speakerOrder: [],
   talks: [],
@@ -42,6 +62,7 @@ type DeepPartial<T> = {
 };
 
 const withFallbacks = (parsed: DeepPartial<EventConfig>): DeepPartial<EventConfig> => {
+  const parsedEvent = parsed.event ?? {};
   const fallbackAssets = (parsed.assets ?? {}) as DeepPartial<EventConfig["assets"]> & {
     supportLogoMain?: string;
     supportLogoSecondary?: string;
@@ -54,6 +75,20 @@ const withFallbacks = (parsed: DeepPartial<EventConfig>): DeepPartial<EventConfi
 
   return {
     ...parsed,
+    event: {
+      ...parsedEvent,
+      socials: {
+        instagram:
+          parsedEvent.socials?.instagram ??
+          (parsedEvent.socialHandle
+            ? `https://www.instagram.com/${parsedEvent.socialHandle.replace(/^\/+/, "")}`
+            : "https://www.instagram.com/awscloudclubunivali"),
+        linkedin: parsedEvent.socials?.linkedin ?? "",
+        email: parsedEvent.socials?.email ?? "",
+        meetup: parsedEvent.socials?.meetup ?? "",
+        youtube: parsedEvent.socials?.youtube ?? "",
+      },
+    },
     assets: {
       ...parsed.assets,
       balloon: fallbackAssets.balloon,
@@ -69,6 +104,45 @@ const withFallbacks = (parsed: DeepPartial<EventConfig>): DeepPartial<EventConfi
       organizationName: parsed.branding?.organizationName ?? "AWS Cloud Clubs",
       organizationUnit: parsed.branding?.organizationUnit ?? "UNIVALI",
     },
+    partners: {
+      supporters:
+        parsed.partners?.supporters && parsed.partners.supporters.length > 0
+          ? parsed.partners.supporters
+          : (fallbackAssets.supportLogos ?? []).map((logo, idx) => ({
+              id: `apoiador-${idx + 1}`,
+              shortName: `Apoiador ${idx + 1}`,
+              name: `Apoiador ${idx + 1}`,
+              logo,
+              description: "Apoiador do meetup AWS Cloud Club.",
+            })),
+      sponsors:
+        parsed.partners?.sponsors && parsed.partners.sponsors.length > 0
+          ? parsed.partners.sponsors
+          : [fallbackAssets.primarySupportLogo]
+              .filter((logo): logo is string => Boolean(logo))
+              .map((logo, idx) => ({
+                id: `patrocinador-${idx + 1}`,
+                shortName: `Patrocinador ${idx + 1}`,
+                name: `Patrocinador ${idx + 1}`,
+                logo,
+                description: "Patrocinador do meetup AWS Cloud Club.",
+              })),
+    },
+    clubPromo: {
+      headline:
+        parsed.clubPromo?.headline ?? "Participe do AWS Cloud Club UNIVALI",
+      subheadline:
+        parsed.clubPromo?.subheadline ??
+        "Comunidade para aprender cloud, construir projetos e evoluir com networking real.",
+      highlights:
+        parsed.clubPromo?.highlights && parsed.clubPromo.highlights.length > 0
+          ? parsed.clubPromo.highlights
+          : ["Conteudo pratico", "Networking", "Projetos reais"],
+      siteUrl:
+        parsed.clubPromo?.siteUrl ?? "https://www.instagram.com/awscloudclubunivali",
+      callToAction: parsed.clubPromo?.callToAction ?? "Quero participar",
+      qrCodeImage: parsed.clubPromo?.qrCodeImage ?? "",
+    },
   };
 };
 
@@ -78,6 +152,8 @@ const mergeEventConfig = (parsed: DeepPartial<EventConfig>): EventConfig => {
   const parsedBranding = normalizedParsed.branding as Partial<EventConfig["branding"]>;
   const parsedLabels = normalizedParsed.labels as Partial<EventConfig["labels"]>;
   const parsedAssets = normalizedParsed.assets as Partial<EventConfig["assets"]>;
+  const parsedClubPromo = normalizedParsed.clubPromo as Partial<EventConfig["clubPromo"]>;
+  const parsedPartners = normalizedParsed.partners as Partial<EventConfig["partners"]>;
   const parsedSpeakers =
     normalizedParsed.speakers as Record<string, EventConfig["speakers"][string]>;
   const parsedSpeakerOrder = normalizedParsed.speakerOrder as string[] | undefined;
@@ -93,6 +169,8 @@ const mergeEventConfig = (parsed: DeepPartial<EventConfig>): EventConfig => {
     },
     labels: { ...defaultEventConfig.labels, ...(parsedLabels ?? {}) },
     assets: { ...defaultEventConfig.assets, ...(parsedAssets ?? {}) },
+    clubPromo: { ...defaultEventConfig.clubPromo, ...(parsedClubPromo ?? {}) },
+    partners: { ...defaultEventConfig.partners, ...(parsedPartners ?? {}) },
     speakers: {
       ...defaultEventConfig.speakers,
       ...(parsedSpeakers ?? {}),
