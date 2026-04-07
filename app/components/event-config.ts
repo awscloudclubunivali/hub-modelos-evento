@@ -51,6 +51,11 @@ export const defaultEventConfig: EventConfig = {
   speakers: {},
   speakerOrder: [],
   talks: [],
+  weeklyPost: {
+    title: "",
+    hookSentence: "",
+    image: ""
+  },
 };
 
 type DeepPartial<T> = {
@@ -158,6 +163,7 @@ const mergeEventConfig = (parsed: DeepPartial<EventConfig>): EventConfig => {
     normalizedParsed.speakers as Record<string, EventConfig["speakers"][string]>;
   const parsedSpeakerOrder = normalizedParsed.speakerOrder as string[] | undefined;
   const parsedTalks = normalizedParsed.talks as EventConfig["talks"] | undefined;
+  const parsedWeeklyPost = normalizedParsed.weeklyPost as Partial<EventConfig["weeklyPost"]> | undefined;
 
   return {
     ...defaultEventConfig,
@@ -177,6 +183,7 @@ const mergeEventConfig = (parsed: DeepPartial<EventConfig>): EventConfig => {
     },
     speakerOrder: parsedSpeakerOrder ?? defaultEventConfig.speakerOrder,
     talks: parsedTalks ?? defaultEventConfig.talks,
+    weeklyPost: { ...defaultEventConfig.weeklyPost, ...(parsedWeeklyPost ?? {}) },
   };
 };
 
