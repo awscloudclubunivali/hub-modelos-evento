@@ -3,7 +3,9 @@ import type { ReactNode } from "react";
 import BaseTemplateLayout from "./BaseTemplateLayout";
 import CaptureBannerContent from "./CaptureBannerContent";
 import ClubPromoBanner from "./ClubPromoBanner";
+import EventWaitingBanner from "./EventWaitingBanner";
 import GalacticBanner from "./GalacticBanner";
+import WeeklyPostBanner from "./WeeklyPostBanner";
 import type { EventConfig, Format, PageView, ProfileBannerVariant, Sizes } from "./types";
 
 type TemplateCanvasProps = {
@@ -49,19 +51,52 @@ function TemplateCanvas({
   activeSpeakerKey,
   orderedSpeakerIds,
 }: TemplateCanvasProps) {
-  const activeRenderer = useMemo<ReactNode>(() => {
-    if (isProfileBannerView) {
+  const resolvedTemplate = useMemo<ReactNode>(() => {
+    if (pageView === "weekly-post") {
       return (
+        <WeeklyPostBanner
+          eventConfig={eventConfig}
+          exportDebugMode={exportDebugMode}
+          aspectRatio={captureAspectRatio}
+          widthClass={captureWidthClass}
+          format={format}
+        />
+      );
+    }
+
+    if (pageView === "event-waiting") {
+      return (
+        <EventWaitingBanner
+          eventConfig={eventConfig}
+          exportDebugMode={exportDebugMode}
+          aspectRatio={captureAspectRatio}
+          widthClass={captureWidthClass}
+        />
+      );
+    }
+
+    if (isProfileBannerView) {
+      const activeRenderer = (
         <GalacticBanner
           eventConfig={eventConfig}
           variant={profileBannerVariant}
           exportDebugMode={exportDebugMode}
         />
       );
+
+      return (
+        <BaseTemplateLayout
+          aspectRatio={captureAspectRatio}
+          widthClass={captureWidthClass}
+          exportDebugMode={exportDebugMode}
+        >
+          {activeRenderer}
+        </BaseTemplateLayout>
+      );
     }
 
     if (isClubPromoView) {
-      return (
+      const activeRenderer = (
         <ClubPromoBanner
           eventConfig={eventConfig}
           sizes={sizes}
@@ -69,10 +104,20 @@ function TemplateCanvas({
           exportDebugMode={exportDebugMode}
         />
       );
+
+      return (
+        <BaseTemplateLayout
+          aspectRatio={captureAspectRatio}
+          widthClass={captureWidthClass}
+          exportDebugMode={exportDebugMode}
+        >
+          {activeRenderer}
+        </BaseTemplateLayout>
+      );
     }
 
     if (isMeetupEventView) {
-      return (
+      const activeRenderer = (
         <GalacticBanner
           eventConfig={eventConfig}
           variant="meetup"
@@ -80,9 +125,19 @@ function TemplateCanvas({
           exportDebugMode={exportDebugMode}
         />
       );
+
+      return (
+        <BaseTemplateLayout
+          aspectRatio={captureAspectRatio}
+          widthClass={captureWidthClass}
+          exportDebugMode={exportDebugMode}
+        >
+          {activeRenderer}
+        </BaseTemplateLayout>
+      );
     }
 
-    return (
+    const activeRenderer = (
       <CaptureBannerContent
         eventConfig={eventConfig}
         sizes={sizes}
@@ -99,11 +154,23 @@ function TemplateCanvas({
         orderedSpeakerIds={orderedSpeakerIds}
       />
     );
+
+    return (
+      <BaseTemplateLayout
+        aspectRatio={captureAspectRatio}
+        widthClass={captureWidthClass}
+        exportDebugMode={exportDebugMode}
+      >
+        {activeRenderer}
+      </BaseTemplateLayout>
+    );
   }, [
     activeSpeaker,
     activeSpeakerKey,
     activeSponsor,
     activeSupporter,
+    captureAspectRatio,
+    captureWidthClass,
     eventConfig,
     exportDebugMode,
     format,
@@ -119,15 +186,7 @@ function TemplateCanvas({
     sizes,
   ]);
 
-  return (
-    <BaseTemplateLayout
-      aspectRatio={captureAspectRatio}
-      widthClass={captureWidthClass}
-      exportDebugMode={exportDebugMode}
-    >
-      {activeRenderer}
-    </BaseTemplateLayout>
-  );
+  return resolvedTemplate;
 }
 
 export default memo(TemplateCanvas);

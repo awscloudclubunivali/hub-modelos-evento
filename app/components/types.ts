@@ -5,6 +5,8 @@ export type PageView =
   | "main"
   | "club"
   | "main-meetup"
+  | "weekly-post"
+  | "event-waiting"
   | "galactic"
   | "supporters"
   | "sponsors"

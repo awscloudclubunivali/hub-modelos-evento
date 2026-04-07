@@ -41,6 +41,29 @@ const GLOBAL_DECORATIVE_STYLES = `
     mix-blend-mode: normal !important;
     opacity: 0.95 !important;
   }
+
+  #banner-capture:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    padding: 1.5rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #05050a;
+  }
+
+  #banner-capture:fullscreen {
+    width: min(100vw, 177.78vh) !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    box-shadow: none !important;
+  }
+
+  #banner-capture:fullscreen [data-export-content-root='true'] {
+    overflow: hidden;
+  }
 `;
 
 export default function Page() {
@@ -74,6 +97,19 @@ export default function Page() {
     captureFrame,
   } = useBannerHubState();
   const [downloadError, setDownloadError] = useState<string | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const bannerRoot = document.getElementById("banner-capture");
+      setIsFullscreen(document.fullscreenElement === bannerRoot);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
 
   useEffect(() => {
     if (!downloadError) {
@@ -123,6 +159,23 @@ export default function Page() {
     setIsDownloading,
   ]);
 
+  const handleToggleFullscreen = useCallback(async () => {
+    const bannerRoot = document.getElementById("banner-capture");
+    if (!bannerRoot) {
+      return;
+    }
+
+    try {
+      if (document.fullscreenElement === bannerRoot) {
+        await document.exitFullscreen();
+      } else {
+        await bannerRoot.requestFullscreen();
+      }
+    } catch (error) {
+      console.error("Falha ao alternar tela cheia:", error);
+    }
+  }, []);
+
   return (
     <div
       className="min-h-screen bg-[#05050a] flex flex-col items-center justify-center p-4 md:p-8 text-slate-100"
@@ -147,6 +200,8 @@ export default function Page() {
         availableFormats={availableFormats}
         onChangeFormat={setFormat}
         onChangePage={handleChangePage}
+        onToggleFullscreen={handleToggleFullscreen}
+        isFullscreen={isFullscreen}
         onDownload={handleDownload}
       />
 

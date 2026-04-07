@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { Lightbulb, QrCode, Users, Wrench } from "lucide-react";
 import AssetImage from "./AssetImage";
-import ClubSocialFooter from "./ClubSocialFooter";
 import TemplateBackdrop from "./TemplateBackdrop";
+import TemplateFooter from "./TemplateFooter";
 import type { EventConfig, Format, Sizes } from "./types";
 
 type ClubPromoBannerProps = {
@@ -131,7 +131,7 @@ function ClubPromoBanner({
           </div>
         </div>
 
-        <ClubSocialFooter
+        <TemplateFooter
           sizes={sizes}
           format={format}
           socials={eventConfig.event.socials}

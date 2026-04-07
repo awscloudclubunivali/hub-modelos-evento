@@ -6,10 +6,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Download,
+  Expand,
   FileText,
   LayoutDashboard,
   Link,
   Loader2,
+  Minimize,
   User,
 } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
@@ -41,6 +43,8 @@ type ControlsProps = {
   onChangeFormat: (format: Format) => void;
   onChangePage: (view: PageView) => void;
   onDownload: () => void;
+  onToggleFullscreen: () => void;
+  isFullscreen: boolean;
 };
 
 const formatButtons: Array<{ value: Format; label: string; icon: ReactNode }> = [
@@ -78,6 +82,8 @@ function Controls({
   onChangeFormat,
   onChangePage,
   onDownload,
+  onToggleFullscreen,
+  isFullscreen,
 }: ControlsProps) {
   const currentPageButtonIndex = Math.max(
     pageButtons.findIndex((button) =>
@@ -103,7 +109,9 @@ function Controls({
   };
 
   const showVariantSelector = pageView === "galactic";
-  const showFormatSelector = !showVariantSelector && pageView !== "main-meetup";
+  const showFormatSelector =
+    !showVariantSelector && pageView !== "main-meetup" && availableFormats.length > 1;
+  const isEventWaitingView = pageView === "event-waiting";
   const showExportDebugToggle = false;
   const pageCategory = currentPageButton
     ? getPageCategory(currentPageButton.value)
@@ -193,15 +201,30 @@ function Controls({
           </ControlSurface>
         ) : null}
 
-        <PrimaryActionButton
-          onClick={onDownload}
-          loading={isDownloading}
-          label="Baixar"
-          loadingLabel="Gerando..."
-          aria-label="Baixar modelo em PNG"
-          icon={<Download size={18} />}
-          loadingIcon={<Loader2 size={18} className="animate-spin" />}
-        />
+        {isEventWaitingView ? (
+          <PrimaryActionButton
+            onClick={onToggleFullscreen}
+            label={isFullscreen ? "Sair da Tela Cheia" : "Apresentar"}
+            aria-label={
+              isFullscreen
+                ? "Sair da apresentacao em tela cheia"
+                : "Entrar em apresentacao em tela cheia"
+            }
+            icon={isFullscreen ? <Minimize size={18} /> : <Expand size={18} />}
+          />
+        ) : null}
+
+        {!isEventWaitingView ? (
+          <PrimaryActionButton
+            onClick={onDownload}
+            loading={isDownloading}
+            label="Baixar"
+            loadingLabel="Gerando..."
+            aria-label="Baixar modelo em PNG"
+            icon={<Download size={18} />}
+            loadingIcon={<Loader2 size={18} className="animate-spin" />}
+          />
+        ) : null}
       </div>
     </div>
   );

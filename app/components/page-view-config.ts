@@ -19,6 +19,16 @@ type StaticPageMeta = {
 const STATIC_PAGE_META: Record<Exclude<PageView, `speaker:${string}`>, StaticPageMeta> = {
   galactic: { label: "Banner - Perfil", color: "purple", category: "content" },
   club: { label: "Banner - Clube", color: "purple", category: "content" },
+  "weekly-post": {
+    label: "Publicacao Semanal",
+    color: "purple",
+    category: "content",
+  },
+  "event-waiting": {
+    label: "Tela de Espera",
+    color: "purple",
+    category: "content",
+  },
   "main-meetup": {
     label: "Banner - Evento Meetup",
     color: "purple",
@@ -32,6 +42,8 @@ const STATIC_PAGE_META: Record<Exclude<PageView, `speaker:${string}`>, StaticPag
 const STATIC_PAGE_ORDER: Array<Exclude<PageView, `speaker:${string}`>> = [
   "galactic",
   "club",
+  "weekly-post",
+  "event-waiting",
   "main-meetup",
   "main",
   "supporters",
@@ -41,13 +53,31 @@ const STATIC_PAGE_ORDER: Array<Exclude<PageView, `speaker:${string}`>> = [
 const MAIN_AND_PARTNER_PAGES = new Set<PageView>([
   "main",
   "club",
+  "weekly-post",
   "supporters",
   "sponsors",
 ]);
 
+const STANDARD_CAPTURE_FRAME_BY_FORMAT: Record<Format, { aspectRatio: string; widthClass: string }> = {
+  a4: {
+    aspectRatio: getAspectRatio("a4"),
+    widthClass: "max-w-[600px]",
+  },
+  instagram: {
+    aspectRatio: getAspectRatio("instagram"),
+    widthClass: "max-w-[600px]",
+  },
+  linkedin: {
+    aspectRatio: getAspectRatio("linkedin"),
+    widthClass: "max-w-[1000px]",
+  },
+};
+
 const PAGE_DOWNLOAD_PARTS: Record<Exclude<PageView, `speaker:${string}`>, string> = {
   main: "banner-evento",
   club: "banner-clube",
+  "weekly-post": "publicacao-semanal",
+  "event-waiting": "tela-espera",
   "main-meetup": "banner-evento-meetup",
   supporters: "apoiadores",
   sponsors: "patrocinadores",
@@ -70,7 +100,7 @@ export const getPageCategory = (pageView: PageView): PageCategory => {
 
 export const buildPageButtons = (orderedSpeakerIds: string[]): PageButton[] => {
   const pageButtons: PageButton[] = STATIC_PAGE_ORDER
-    .slice(0, 4)
+    .filter((page) => page !== "supporters" && page !== "sponsors")
     .map((page) => ({
       value: page,
       label: STATIC_PAGE_META[page].label,
@@ -103,6 +133,10 @@ export const buildPageButtons = (orderedSpeakerIds: string[]): PageButton[] => {
 
 export const getAvailableFormats = (pageView: PageView): Format[] => {
   if (pageView === "galactic") {
+    return ["linkedin"];
+  }
+
+  if (pageView === "event-waiting") {
     return ["linkedin"];
   }
 
@@ -139,10 +173,14 @@ export const getCaptureFrame = ({
     };
   }
 
-  return {
-    aspectRatio: getAspectRatio(format),
-    widthClass: format === "linkedin" ? "max-w-[1000px]" : "max-w-[600px]",
-  };
+  if (pageView === "event-waiting") {
+    return {
+      aspectRatio: "16 / 9",
+      widthClass: "max-w-[1400px] mx-auto",
+    };
+  }
+
+  return STANDARD_CAPTURE_FRAME_BY_FORMAT[format];
 };
 
 export const getDownloadNameParts = ({

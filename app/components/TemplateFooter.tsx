@@ -3,7 +3,7 @@ import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { SiMeetup } from "react-icons/si";
 import type { Format, Sizes } from "./types";
 
-type ClubSocialFooterProps = {
+type TemplateFooterProps = {
   sizes: Sizes;
   format: Format;
   socials: {
@@ -31,11 +31,11 @@ const getDisplayValue = (id: string, value: string): string => {
   return firstSlash >= 0 ? `/${normalized.slice(firstSlash + 1)}` : `/${normalized}`;
 };
 
-export default function ClubSocialFooter({
+export default function TemplateFooter({
   sizes,
   format,
   socials,
-}: ClubSocialFooterProps) {
+}: TemplateFooterProps) {
   const isInstagram = format === "instagram";
   const sharedChannelValue =
     getDisplayValue("instagram", socials.instagram) ||

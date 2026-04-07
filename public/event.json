@@ -36,6 +36,9 @@
       "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/apoiadores/fluidapi.jpg"
     ]
   },
+  "awsSolutions": {
+    "ec2": "https://aws-cloud-club-univali.s3.sa-east-1.amazonaws.com/imagens/services/Arch_Amazon-EC2_64%405x.png"
+  },
   "clubPromo": {
     "headline": "Aprenda Cloud na pratica com o AWS Cloud Club UNIVALI",
     "subheadline": "Comunidade aberta para estudantes que querem evoluir com AWS, projetos reais e networking.",

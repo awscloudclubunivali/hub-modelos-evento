@@ -4,12 +4,14 @@ type TemplateBackdropProps = {
   starsOpacityClass?: string;
   gridOpacityClass?: string;
   exportDebugMode?: boolean;
+  animateStars?: boolean;
 };
 
 function TemplateBackdrop({
   starsOpacityClass = "opacity-70",
   gridOpacityClass = "opacity-40",
   exportDebugMode = false,
+  animateStars = false,
 }: TemplateBackdropProps) {
   const blendSafeStyle = exportDebugMode
     ? ({ mixBlendMode: "normal", filter: "none", animation: "none" } as const)
@@ -56,8 +58,17 @@ function TemplateBackdrop({
                 }
               : undefined
           }
-        className={`absolute inset-0 stars-organic pointer-events-none mix-blend-screen z-0 ${starsOpacityClass}`}
+        className={`absolute inset-0 stars-organic pointer-events-none mix-blend-screen z-0 ${starsOpacityClass} ${
+          animateStars ? "animate-stars-twinkle-drift" : ""
+        }`}
       ></div>
+      {animateStars ? (
+        <div
+          data-capture-risk="blend-layer"
+          data-export-opacity="0.34"
+          className="absolute inset-0 stars-organic pointer-events-none mix-blend-screen z-0 opacity-35 animate-stars-twinkle-drift-reverse"
+        ></div>
+      ) : null}
     </>
   );
 }

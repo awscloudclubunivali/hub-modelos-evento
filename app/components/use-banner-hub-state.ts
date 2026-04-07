@@ -86,8 +86,9 @@ export const useBannerHubState = () => {
     (view: PageView) => {
       setPageView(view);
 
-      if (view === "club" && format === "linkedin") {
-        setFormat("instagram");
+      const viewFormats = getAvailableFormats(view);
+      if (!viewFormats.includes(format)) {
+        setFormat(viewFormats[0]);
       }
     },
     [format],

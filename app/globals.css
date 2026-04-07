@@ -20,6 +20,89 @@
   font-family: "Orbitron", sans-serif;
 }
 
+@keyframes galactic-shift {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+    filter: saturate(100%);
+  }
+  50% {
+    transform: scale(1.04) translate3d(0, -1.5%, 0);
+    filter: saturate(115%);
+  }
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+    filter: saturate(100%);
+  }
+}
+
+@keyframes stars-pulse {
+  0% {
+    opacity: 0.48;
+  }
+  50% {
+    opacity: 0.78;
+  }
+  100% {
+    opacity: 0.48;
+  }
+}
+
+@keyframes nebula-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) scale(1.03);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes nebula-drift-reverse {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, 10px, 0) scale(1.03);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes float-soft {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-galactic-shift {
+  animation: galactic-shift 14s ease-in-out infinite;
+}
+
+.animate-stars-pulse {
+  animation: stars-pulse 7s ease-in-out infinite;
+}
+
+.animate-nebula-drift {
+  animation: nebula-drift 12s ease-in-out infinite;
+}
+
+.animate-nebula-drift-reverse {
+  animation: nebula-drift-reverse 13s ease-in-out infinite;
+}
+
+.animate-float-soft {
+  animation: float-soft 4.2s ease-in-out infinite;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -31,4 +114,59 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Space Grotesk", sans-serif;
+}
+
+@keyframes stars-twinkle-drift {
+
+  0%,
+  100% {
+    opacity: 0.38;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  33% {
+    opacity: 0.85;
+    transform: translate3d(20px, -15px, 0) scale(1.03);
+  }
+
+  66% {
+    opacity: 0.50;
+    transform: translate3d(-10px, -25px, 0) scale(0.98);
+  }
+}
+
+@keyframes stars-twinkle-drift-reverse {
+
+  0%,
+  100% {
+    opacity: 0.24;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  33% {
+    opacity: 0.65;
+    transform: translate3d(-20px, 20px, 0) scale(0.97);
+  }
+
+  66% {
+    opacity: 0.35;
+    transform: translate3d(15px, 10px, 0) scale(1.04);
+  }
+}
+
+.animate-stars-twinkle-drift {
+  /* ease-in-out deixa o movimento fluido e natural, sem trancos */
+  animation: stars-twinkle-drift 24s ease-in-out infinite;
+}
+
+.animate-stars-twinkle-drift-reverse {
+  animation: stars-twinkle-drift-reverse 30s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-stars-twinkle-drift,
+  .animate-stars-twinkle-drift-reverse {
+    animation: none !important;
+  }
 }
