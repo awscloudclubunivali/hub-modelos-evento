@@ -53,6 +53,11 @@ export interface Partner {
 }
 
 export interface EventConfig {
+  weeklyPost: {
+    title: string;
+    hookSentence: string;
+    image: string;
+  };
   event: {
     badge: string;
     title: string;

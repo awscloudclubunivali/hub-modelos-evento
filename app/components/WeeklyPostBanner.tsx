@@ -23,9 +23,6 @@ function WeeklyPostBanner({
 }: WeeklyPostBannerProps) {
   const sizes = getSizes(format);
   const isInstagram = format === "instagram";
-  const solutionImageSrc = eventConfig.awsSolutions.ec2;
-  const hookSentence = "Automatize operacoes e reduza custos com arquitetura cloud eficiente.";
-  const postTitle = "Observabilidade AWS em Escala";
 
   return (
     <BaseTemplateLayout
@@ -48,7 +45,7 @@ function WeeklyPostBanner({
             <div className={`w-full min-w-0 ${isInstagram ? "max-w-[180px]" : "max-w-[250px]"}`}>
               <div className="w-full rounded-3xl border border-white/15 bg-white/5 backdrop-blur-sm p-4 sm:p-5 shadow-[0_0_32px_rgba(34,211,238,0.18)]">
                 <AssetImage
-                  src={solutionImageSrc}
+                  src={eventConfig.weeklyPost.image}
                   alt="Imagem da solucao AWS"
                   className="w-full aspect-square object-contain"
                 />
@@ -57,11 +54,11 @@ function WeeklyPostBanner({
           </div>
 
           <h1 className="w-full max-w-[760px] text-center font-space text-white font-bold text-4xl leading-tight text-balance">
-            {postTitle}
+            {eventConfig.weeklyPost.title}
           </h1>
 
           <p className="w-full max-w-[740px] text-center font-space text-cyan-100/85 text-sm sm:text-base leading-relaxed rounded-2xl border border-white/10 bg-black/25 px-4 py-3 sm:px-5 sm:py-2">
-            {hookSentence}
+            {eventConfig.weeklyPost.hookSentence}
           </p>
         </div>
 
