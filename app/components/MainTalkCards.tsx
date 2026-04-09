@@ -36,7 +36,13 @@ function TalkCard({
           <div
             className={`font-orbitron ${isCyan ? "text-cyan-400" : "text-purple-300"} font-bold uppercase tracking-widest mb-1 flex items-center gap-1.5 ${sizes.cardTag}`}
           >
-            {isCyan ? <Terminal size={sizes.cardIconSize} /> : <Cloud size={sizes.cardIconSize} />} {tag}
+            {isCyan ? <Terminal size={sizes.cardIconSize} /> : <Cloud size={sizes.cardIconSize} />}
+            <span
+              className="font-orbitron truncate"
+              style={{ fontFamily: '"Orbitron", var(--font-sans), sans-serif' }}
+            >
+              {tag}
+            </span>
           </div>
           <h3 className={`font-space font-bold text-white truncate ${sizes.cardTitle}`}>
             {title}

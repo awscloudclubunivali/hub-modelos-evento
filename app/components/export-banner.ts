@@ -3,7 +3,7 @@ import { getDownloadNameParts } from "./page-view-config";
 import type { Format, PageView, ProfileBannerVariant } from "./types";
 
 const EXPORT_TIMEOUT_MS = 20000;
-const EXPORT_SCALE = 3;
+const MAX_EXPORT_DIMENSION = 2400;
 const DEFAULT_EXPORT_ERROR_MESSAGE =
   "Falha ao gerar imagem. Verifique imagens externas (CORS) e tente novamente.";
 
@@ -276,15 +276,19 @@ const createBlobWithHtmlToImage = async ({
   node,
   dimensions,
 }: CaptureEngineOptions): Promise<Blob> => {
+  const rect = node.getBoundingClientRect();
+  const maxEdge = Math.max(rect.width, rect.height);
+  const dynamicScale = Math.min(window.devicePixelRatio * 2, MAX_EXPORT_DIMENSION / maxEdge);
+
   const blob = await withTimeout(
     htmlToImageToBlob(node, {
       cacheBust: true,
-      pixelRatio: EXPORT_SCALE,
+      pixelRatio: dynamicScale,
       backgroundColor: "#0a0216",
       width: dimensions.width,
       height: dimensions.height,
-      canvasWidth: dimensions.width * EXPORT_SCALE,
-      canvasHeight: dimensions.height * EXPORT_SCALE,
+      canvasWidth: dimensions.width * dynamicScale,
+      canvasHeight: dimensions.height * dynamicScale,
       skipFonts: false,
       style: {
         width: `${dimensions.width}px`,
@@ -361,6 +365,9 @@ export const exportBannerAsPng = async ({
   }
 
   await withTimeout(new Promise((resolve) => setTimeout(resolve, 100)), EXPORT_TIMEOUT_MS);
+  if (document.fonts?.ready) {
+    await document.fonts.ready;
+  }
   await waitForFonts();
   await waitForImages(node);
 

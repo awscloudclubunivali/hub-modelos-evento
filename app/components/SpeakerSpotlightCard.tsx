@@ -42,7 +42,12 @@ export default function SpeakerSpotlightCard({
               className={`font-orbitron ${isSecondaryTheme ? "text-purple-300" : "text-cyan-400"} font-bold uppercase tracking-widest flex items-center gap-1.5 ${sizes.featCardTag}`}
             >
               {icon}
-              <span className="truncate">{speaker.tag}</span>
+              <span
+                className="font-orbitron truncate"
+                style={{ fontFamily: '"Orbitron", var(--font-sans), sans-serif' }}
+              >
+                {speaker.tag}
+              </span>
             </div>
             <h3 className={`font-space font-bold text-white ${sizes.featCardTitle}`}>
               {speaker.title}
